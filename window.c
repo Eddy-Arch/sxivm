@@ -117,7 +117,7 @@ void win_init(win_t *win)
 	res_man = XResourceManagerString(e->dpy);
 	db = res_man != NULL ? XrmGetStringDatabase(res_man) : None;
 
-	f = win_res(db, RES_CLASS ".font", "monospace-8");
+	f = win_res(db, RES_CLASS ".font", font_name);
 	win_init_font(e, f);
 
 	bg = win_res(db, RES_CLASS ".background", background_colors);
@@ -239,10 +239,10 @@ void win_open(win_t *win)
 	}
 	free(icon_data);
 
-	win_set_title(win, "sxiv");
+	win_set_title(win, "sxivm");
 
 	classhint.res_class = RES_CLASS;
-	classhint.res_name = options->res_name != NULL ? options->res_name : "sxiv";
+	classhint.res_name = options->res_name != NULL ? options->res_name : "sxivm";
 	XSetClassHint(e->dpy, win->xwin, &classhint);
 
 	XSetWMProtocols(e->dpy, win->xwin, &atoms[ATOM_WM_DELETE_WINDOW], 1);
