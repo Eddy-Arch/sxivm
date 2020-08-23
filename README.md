@@ -1,5 +1,8 @@
 ![sxiv](http://muennich.github.com/sxiv/img/logo.png "sxiv")
 
+## this is a small patch of the sxiv image viewer, that lets you change the colors via colors.h
+### everything else is basically the same.  all credit goes to the original developer.
+
 **Simple X Image Viewer**
 
 The sole purpose of sxiv is to be the perfect image viewer for me. It is free
