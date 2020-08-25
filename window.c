@@ -93,7 +93,7 @@ const char* win_res(XrmDatabase db, const char *name, const char *def)
 void win_init(win_t *win)
 {
 	win_env_t *e;
-	const char *bg, *fg, *f;
+	const char *bg, *fg, *f, *gg;
 	char *res_man;
 	XrmDatabase db;
 
@@ -122,8 +122,12 @@ void win_init(win_t *win)
 
 	bg = win_res(db, RES_CLASS ".background", background_colors);
 	fg = win_res(db, RES_CLASS ".foreground", foreground_colors);
+	gg = win_res(db, RES_CLASS ".background_colors", bar_color);
 	win_alloc_color(e, bg, &win->bg);
 	win_alloc_color(e, fg, &win->fg);
+	win_alloc_color(e, gg, &win->gg);
+
+
 
 	win->bar.l.size = BAR_L_LEN;
 	win->bar.r.size = BAR_R_LEN;
@@ -210,7 +214,7 @@ void win_open(win_t *win)
 		if (i != CURSOR_NONE)
 			cursors[i].icon = XCreateFontCursor(e->dpy, cursors[i].name);
 	}
-	if (XAllocNamedColor(e->dpy, DefaultColormap(e->dpy, e->scr), "black",
+	if (XAllocNamedColor(e->dpy, DefaultColormap(e->dpy, e->scr), background_colors,
 	                     &col, &col) == 0)
 	{
 		error(EXIT_FAILURE, 0, "Error allocating color 'black'");
@@ -398,11 +402,11 @@ void win_draw_bar(win_t *win)
 	d = XftDrawCreate(e->dpy, win->buf.pm, DefaultVisual(e->dpy, e->scr),
 	                  DefaultColormap(e->dpy, e->scr));
 
-	XSetForeground(e->dpy, gc, win->fg.pixel);
+	XSetForeground(e->dpy, gc, win->gg.pixel);
 	XFillRectangle(e->dpy, win->buf.pm, gc, 0, win->h, win->w, win->bar.h);
 
-	XSetForeground(e->dpy, gc, win->bg.pixel);
-	XSetBackground(e->dpy, gc, win->fg.pixel);
+	XSetForeground(e->dpy, gc, win->fg.pixel);
+	XSetBackground(e->dpy, gc, win->bg.pixel);
 
 	if ((len = strlen(r->buf)) > 0) {
 		if ((tw = TEXTWIDTH(win, r->buf, len)) > w)
