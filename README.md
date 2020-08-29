@@ -1,7 +1,7 @@
 ![sxiv](http://muennich.github.com/sxiv/img/logo.png "sxiv")
 
 ## this is a small patch of the sxiv image viewer, that lets you change the colors via colors.h
-### everything else is basically the same.  all credit goes to the original developer.
+### also, this patch removes the need for xrdb and xresources. everything else is basically the same.  all credit goes to the original developer.
 
 **Simple X Image Viewer**
 
